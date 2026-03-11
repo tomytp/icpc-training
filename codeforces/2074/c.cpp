@@ -20,28 +20,18 @@ const ll INF = 0x3f3f3f3f3f3f3f3fll;
 
 void solve(){
     ll x; cin >> x;
-    ll pot2 = 1;
-    ll i = 0;
-    ll id0 = -1;
-    ll id1 = -1;
-    while(2*pot2 < x){
-        if((id0 == -1) && ((pot2 & x) == 0)){
-            id0 = i;
-        }
-        if((id1 == -1) && ((pot2 & x) != 0)){
-            id1 = i;
-        }    
-        i++;
-        pot2 *= 2;
-    }
-
-    if((id0 == -1) || (id1 == -1)){
+    ll has = 64 - __builtin_clzll(x);
+    ll uses = __builtin_popcountll(x);
+    if (uses == 1 || uses == has) {
         cout << -1 << ln;
         return;
     }
-
-    ll ans = ((1<<id0) + (1<<id1)); 
-    cout << ans << ln;
+    ll y = 1;
+    while ((2*y)+1 < x) {
+        y <<= 1;
+        y++;
+    }
+    cout << y << ln;
 }
 
 int main(){
